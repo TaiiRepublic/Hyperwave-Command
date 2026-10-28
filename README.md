@@ -1,6 +1,6 @@
 # Hyperwave Command Center
 
-**Version 0.5.1-beta** · by TaiiRepublic · free for every streamer
+**Version 0.5.2-beta** · by TaiiRepublic · free for every streamer
 
 Hyperwave Command Center is a complete streamer suite in one small Windows app. It's built to replace StreamElements-style tools, but it's simpler, it runs on your own PC, and it works across **Twitch, Kick, YouTube and TikTok** at the same time.
 
@@ -643,7 +643,7 @@ Scan **your channel, or any channel you name**, on Twitch, Kick, YouTube and Tik
 - **All viewers:** everyone in chat, page by page, with **NEW ACCOUNT** and **FIRST VISIT** badges.
 - **Deep scan:** returning vs new chatters, top chatters, hype moments with VOD timestamps, trending words, the stream timeline, time per category and **best times to stream**.
 - **History:** import your Twitch, Kick, YouTube or TikTok analytics file, pull past broadcasts, rebuild a Twitch stream's deep scan from its VOD chat, or add streams by hand.
-- **TwitchTracker (Twitch channels):** Sensors pulls each Twitch channel's public stats from TwitchTracker every 6 hours: its rank, its last-30-days averages and its past streams with average and peak viewers, followers and watch time. They go into **History** next to everything else (the **Source** column says **TwitchTracker**). Sensors' own recordings and your analytics files win where both have a number; TwitchTracker fills in the streams they don't have. **History → TwitchTracker → Check again now** checks right away. While you're live, **Overview** shows your 30-day average and Twitch rank, and how this stream compares.
+- **TwitchTracker (Twitch channels):** Sensors pulls each Twitch channel's public stats from TwitchTracker the first time you open the channel, then every 6 hours: its rank, its last-30-days averages and its past streams with average and peak viewers, followers and watch time. They go into **History** next to everything else (the **Source** column says **TwitchTracker**). Sensors' own recordings and your analytics files win where both have a number; TwitchTracker fills in the streams they don't have. **History → TwitchTracker → Check again now** checks right away. While you're live, **Overview** shows your 30-day average and Twitch rank, and how this stream compares.
 - **Stream reports:** **📄 Export report** (above the History list) lets you choose:
   - **Date range:** pick **From** and **To** dates (or **Last 7 days**, **Last 30 days**, **Last 90 days**, **Last year**). The report has totals, highlights (biggest crowd, longest stream, best day of the week, best time to be live), the TwitchTracker summary, a chart of viewers per stream day, and every stream with its numbers. Each stream has a **Stream report →** link.
   - **One stream:** pick it from the list. Its report has the graphs: viewers, active chatters and lurkers over the whole stream, chat messages minute by minute with the hype moments marked, how it compares with your usual and with your TwitchTracker 30-day numbers, returning vs new chatters, top chatters, time in each category, what chat was saying, raids and what happened when. Streams Sensors didn't watch live (TwitchTracker or past broadcasts only) show their numbers without the graphs.
@@ -814,6 +814,7 @@ Command keeps Hyperwave Station's protections:
 | Channel points says "Sign in again" | Twitch and Kick need one fresh sign-in after 0.4.0-beta to allow channel points. Click **Sign in again** on Connections. |
 | StreamElements or Streamlabs says it didn't accept the token | Copy the token again (StreamElements makes a new JWT when you reset it) and paste it, then **Save**. |
 | TwitchTracker says it's busy or blocked the request | TwitchTracker sometimes turns apps away for a while. Sensors tries again every 6 hours; everything else in History keeps working. |
+| The TwitchTracker box says it couldn't read the page | TwitchTracker changed its page. Click **Save what TwitchTracker sent** and send the file to TaiiRepublic. |
 | TwitchTracker doesn't know a channel | It only tracks channels after they've streamed. Check again after the next stream. |
 | Windows SmartScreen warning | **More info → Run anyway**. |
 | Fonts look plain | Chakra Petch and Inter are built in. Other fonts load from Google Fonts and need internet. |
