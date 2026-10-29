@@ -1,6 +1,6 @@
 # Hyperwave Command Center
 
-**Version 0.5.2-beta** · by TaiiRepublic · free for every streamer
+**Version 0.6.1-beta** · by TaiiRepublic · free for every streamer
 
 Hyperwave Command Center is a complete streamer suite in one small Windows app. It's built to replace StreamElements-style tools, but it's simpler, it runs on your own PC, and it works across **Twitch, Kick, YouTube and TikTok** at the same time.
 
@@ -19,7 +19,7 @@ Hyperwave Command Center is a complete streamer suite in one small Windows app. 
 
 Everything is set up in Command Center's own window, in the Hyperwave look (plates, crimson, amber and cyan, Chakra Petch). It keeps running in the tray while you stream. Nothing is sent to a cloud. There's no account to make.
 
-> **Beta build.** Command Center now carries Hyperwave Station and Hyperwave Sensors inside it. Expect the odd rough edge, and please send feedback from **Settings → About → Send feedback**.
+> **Beta build.** Command Center now carries Hyperwave Station and Hyperwave Sensors inside it. Expect the odd rough edge, and please send feedback from **About → Send feedback**.
 
 ---
 
@@ -62,7 +62,7 @@ HyperwaveCommand/
 ├── docs/
 │   └── Music-Deck-DJ-Guide.md   ← full guide to the music, deck and DJ tools
 ├── web/
-│   └── about.json            ← edit to change the About box (your links, tip page)
+│   └── about.json            ← edit to change the About page (your links, tip page)
 ├── streamerbot/
 │   └── Hyperwave-Spotify.cs  ← optional Streamer.bot song-request action
 ├── branding/                 ← app icon (SVG, PNG, ICO)
@@ -166,6 +166,19 @@ This is the page to keep open while you stream. On a wide screen it shows three 
 - **Redeemed this session** lists every redemption from any platform.
 - After updating from 0.3.0-beta, Twitch and Kick each need **one fresh sign-in** to allow channel points (the tab shows a **Sign in again** link).
 
+### Chat and activity as OBS docks
+
+Click **⧉ Pop out** on the **Chat** box or next to the **Activity** tab. You get a link to put that box in OBS as a dock, or **Open in a browser window** to put it on another screen.
+
+1. In OBS, open **Docks → Custom Browser Docks…**
+2. **Dock Name:** `Hyperwave Chat` (or `Hyperwave Activity`)
+3. **URL:** `http://127.0.0.1:7580/dock/chat` (or `http://127.0.0.1:7580/dock/activity`), then click **Apply**.
+4. Drag the dock wherever you like. OBS keeps it there.
+
+- The **chat dock** has everything the Chat box has: every platform's chat, sending, emotes, and **Delete**, **10m** and **Ban**.
+- The **activity dock** shows events as they come in, with a **Points** tab for channel point redemptions, plus **Pause** and **Skip** for alerts.
+- **A−** and **A+** change the text size in each dock. The light in the corner is green while Command Center is running.
+
 **Test an alert**, **Your OBS links**, **Restart countdowns** and **Roll the credits** are on **Overlays & widgets** (section 7).
 
 ---
@@ -203,7 +216,9 @@ Click **Create**. Then click **Manage**, copy the **Client ID**, paste it into *
 3. Click **Authorize**.
 
 The page updates by itself. One sign-in covers alerts, chatbot replies, clips, category changes and mod tools. It asks for these Twitch permissions:
-`clips:edit` `user:write:chat` `channel:manage:broadcast` `moderator:read:followers` `channel:read:subscriptions` `bits:read` `channel:manage:redemptions` `moderator:manage:banned_users` `moderator:manage:chat_messages`
+`clips:edit` `user:write:chat` `channel:manage:broadcast` `moderator:read:followers` `channel:read:subscriptions` `bits:read` `channel:manage:redemptions` `moderator:manage:banned_users` `moderator:manage:chat_messages` `moderator:read:chatters` `moderator:manage:warnings` `user:manage:blocked_users` `user:read:moderated_channels` `channel:read:redemptions`
+
+The last five are for Sensors (viewer lists, warnings, blocks, the channels you mod, and channel point redeems). **Signed in before 0.6.1-beta?** Click **Sign in again** once to add them.
 
 **Step 4. Alerts from Twitch.** Leave **Follows, subs, resubs, gift subs, bits, raids and channel point redeems** ticked. Under the box you'll see **✓ Listening for:** with every event Twitch accepted.
 
@@ -300,16 +315,16 @@ The **Music** box picks where your music comes from, with the setup for each one
 - **Spotify Premium:** make your Spotify developer app (the box shows the exact Redirect URI to paste), paste the **Client ID**, **Save**, then **Connect Spotify**.
 - **Last.fm:** paste your username and API key and **Save**.
 
-Song request rules, the player to follow and the DJ page are on the Music page.
+This is the only place you pick your music source. Song request rules, the player to follow and the DJ page are on the Music page.
 
 ### Sensors
 
-Sensors signs in through its own Twitch, Kick and YouTube apps (it needs extra permissions to read viewer lists and use mod tools on the channels you scan). The **Sensors · Twitch**, **Sensors · Kick** and **Sensors · YouTube** boxes have the steps and exact values:
-1. Make the app (the box shows the Redirect URL to paste, e.g. `http://localhost:7490/auth/twitch/callback`).
-2. Paste the **Client ID** and **Client Secret** and click **Save**.
-3. Click **Sign in to …**. It opens your browser; when it says **Connected**, come back and the light turns green.
+**Sensors uses your Twitch and Kick sign-ins from the boxes above.** Sign in there once and the **Sensors · Twitch** and **Sensors · Kick** lights turn green too. Nothing else to set up.
 
-For YouTube, the box links to the step-by-step Google setup in Sensors. TikTok in Sensors uses the same TikFinity port as above, and Sensors earnings use the StreamElements token from **Tips**, so you only type them once.
+- **Separate account for Sensors** (for example a mod account): open **Use a separate Twitch app for Sensors** (or Kick) in that box. It has the steps and exact values to make your own app, paste its **Client ID** and **Client Secret**, **Save**, and **Sign in to …**. While that sign-in is there, Sensors uses it instead.
+- **Set Sensors up with its own app before 0.6.0-beta?** It keeps working. To use one sign-in for everything, open that section and click **Disconnect**.
+
+**Sensors · YouTube** still needs its own Google sign-in (YouTube's chat and mod tools need a Google Cloud project). The box links to the step-by-step Google setup in Sensors. TikTok in Sensors uses the same TikFinity port as above, and Sensors earnings use the StreamElements token from **Tips**, so you only type them once.
 
 ### Chat replies
 
@@ -642,17 +657,24 @@ Scan **your channel, or any channel you name**, on Twitch, Kick, YouTube and Tik
 - **Lurkers:** silent viewers, known viewer-list bots, viewbot clusters (accounts all made on the same day) and join waves (Twitch and TikTok).
 - **All viewers:** everyone in chat, page by page, with **NEW ACCOUNT** and **FIRST VISIT** badges.
 - **Deep scan:** returning vs new chatters, top chatters, hype moments with VOD timestamps, trending words, the stream timeline, time per category and **best times to stream**.
-- **History:** import your Twitch, Kick, YouTube or TikTok analytics file, pull past broadcasts, rebuild a Twitch stream's deep scan from its VOD chat, or add streams by hand.
+- **🎁 Redeems** (Twitch and Kick):
+  - **Your own Twitch channel:** every channel point redeem as it happens, straight from Twitch, plus your reward list with prices, cooldowns and limits.
+  - **Any other Twitch channel:** redeems that show up in chat (rewards that ask for a message, plus Highlight, Gigantify, Message Effects and Sub-only).
+  - **Kick:** reward redeems from Kick's chat.
+  - Charts for redeems per day, most redeemed, top redeemers and time of day (last 7, 30 or 90 days, or all time).
+  - **💡 Fair prices** (your own Twitch rewards): how long a viewer has to watch to afford each reward, how often it gets used, and a suggested price with the reason.
+- **Past broadcasts pull themselves** for Twitch, Kick and YouTube channels: every 12 hours, and 15 minutes after each stream Sensors watches ends. They stay in History after the platform deletes the video. The past-broadcasts box says when it last pulled, or why it couldn't.
+- **History:** import your Twitch, Kick, YouTube or TikTok analytics file, pull past broadcasts now, rebuild a Twitch stream's deep scan from its VOD chat, or add streams by hand.
 - **TwitchTracker (Twitch channels):** Sensors pulls each Twitch channel's public stats from TwitchTracker the first time you open the channel, then every 6 hours: its rank, its last-30-days averages and its past streams with average and peak viewers, followers and watch time. They go into **History** next to everything else (the **Source** column says **TwitchTracker**). Sensors' own recordings and your analytics files win where both have a number; TwitchTracker fills in the streams they don't have. **History → TwitchTracker → Check again now** checks right away. While you're live, **Overview** shows your 30-day average and Twitch rank, and how this stream compares.
 - **Stream reports:** **📄 Export report** (above the History list) lets you choose:
-  - **Date range:** pick **From** and **To** dates (or **Last 7 days**, **Last 30 days**, **Last 90 days**, **Last year**). The report has totals, highlights (biggest crowd, longest stream, best day of the week, best time to be live), the TwitchTracker summary, a chart of viewers per stream day, and every stream with its numbers. Each stream has a **Stream report →** link.
+  - **Date range:** pick **From** and **To** dates (or **Last 7 days**, **Last 30 days**, **Last 90 days**, **Last year**, or **A whole month…**). The report has totals, highlights (biggest crowd, longest stream, best day of the week, best time to be live), the TwitchTracker summary, a chart of viewers per stream day, and every stream with its numbers. Each stream has a **Stream report →** link.
   - **One stream:** pick it from the list. Its report has the graphs: viewers, active chatters and lurkers over the whole stream, chat messages minute by minute with the hype moments marked, how it compares with your usual and with your TwitchTracker 30-day numbers, returning vs new chatters, top chatters, time in each category, what chat was saying, raids and what happened when. Streams Sensors didn't watch live (TwitchTracker or past broadcasts only) show their numbers without the graphs.
   - You can also open a single stream's report from **📄** next to it in the History list, or **📄 Report for this stream** on its page.
   - Reports open in your browser. **Print or save as PDF** and **Save this report** (one file you can send to anyone) are at the top. **Spreadsheet** saves the same streams for Excel or Google Sheets. **Export raw data** still saves every minute-by-minute reading.
 - **Earnings:** tips, subs, bits, Super Chats, KICKs and TikTok gifts, **only on your own channels** (signed in as that account). Platform amounts are estimates; StreamElements tips sync with your JWT token.
 - **Sensor alerts:** viewer spikes with no raid, follow bursts, raids, and very low chat for the viewer count.
 
-**Setting up:** **Dashboard → Connections → Sensors** (or **Sensors → Settings**) has step-by-step setup for each platform, with the exact values to copy, plus a guided YouTube setup. The first time you open Sensors it can walk you through it.
+**Setting up:** Sensors uses your Twitch and Kick sign-ins from **Connections**, so signing in there is all it needs. YouTube has its own guided Google setup (**Connections → Sensors · YouTube**, or **Sensors → Settings**), with the exact values to copy.
 
 **Your phone:** **Sensors → Settings → Phone**, turn it on, then scan the QR code (or type the PIN) on a phone on the same Wi-Fi.
 
@@ -662,13 +684,21 @@ Sensors keeps its own address, **http://localhost:7490**, so the redirect URLs i
 
 ## 14. OBS & Stream Deck, Music and Chat overlay
 
-Everything from Hyperwave Station 2.0 is built in, split into three tools under **Hyperwave tools** in the menu. Each one opens to a short page of steps; click a step to open its settings.
+Everything from Hyperwave Station 2.0 is built in, as three tools under **Hyperwave tools** in the menu.
 
-- **▦ OBS & Stream Deck:** connect OBS, then run the **Hyperwave Deck** on your PC, phone or **Elgato Stream Deck**: scenes, clips, a soundboard, mute, category changes and chat.
-- **♫ Music:** pick your music (any player on your PC, the YouTube Music app, Spotify Premium, or Last.fm), the **Now Playing** overlay and designer, **song requests** with rules, chat replies, commands without a bot and **Remote DJ** (a mod runs your music from their phone).
-- **💬 Chat overlay:** the **Hyperwave Chat** designer, every platform's chat in one overlay.
+**▦ OBS & Stream Deck** is its own Command Center page:
+1. **OBS:** the connection itself is on **Connections → OBS**. This page has the **Clip** settings: keep the replay buffer running, save the replay to your PC, also make a Twitch clip, and the Streamer.bot action used for Twitch clips.
+2. **Chat on the deck:** the deck shows chat from every platform you've connected on Connections (the same chat as the Command Center page and the chat dock). Add your **quick replies** here (one per line, up to 12). Where replies are posted from is **Connections → Chat replies**.
+3. **Phones and tablets:** tick **Let phones and tablets on my Wi-Fi open the deck**, click **Save**, then scan the QR code. The **deck passkey** (6–64 letters, numbers, dashes or underscores) can be typed, saved or generated here. The port (default `7582`) is under **Change the port**.
+4. **Sounds:** **Add the sound player to all my OBS scenes** adds the invisible **Hyperwave Sounds** browser source. **Play a test beep** checks it.
+5. **Change your category:** shows whether Twitch and Kick are ready (signed in on Connections).
+6. **Elgato Stream Deck:** pick what the button does, copy the link, then in the Stream Deck app use **System → Website** with **GET request in background** ticked.
 
-The settings pages show only the tool you opened, with a switcher at the top of their menu. **Setup (all tools)** under it has **Platforms** (every Twitch, Kick, YouTube, TikTok and Streamer.bot setting for these tools) and **Streamer.bot**.
+**Open the Hyperwave Deck ↗** is at the top of the page.
+
+**♫ Music** opens the Music pages: your music source (picked in the **Music** box on Connections), the **Now Playing** overlay and designer, **song requests** with rules, **song request replies**, **commands without a bot**, **Streamer.bot commands** and **Remote DJ** (a mod runs your music from their phone).
+
+**💬 Chat overlay** is its own page: open the **Hyperwave Chat** designer and follow the five steps to add it to OBS.
 
 The full guide is in `docs/Music-Deck-DJ-Guide.md`.
 
@@ -700,6 +730,7 @@ The Command Center page also shows a **bring your setup over** link when it find
   - saved chat and music layouts
 - **Sign in to Twitch and Kick once on Connections.** Command Center asks for a few more permissions than Station did (alerts and mod tools), so Station's Twitch and Kick sign-ins can't be reused.
 - Command Center looks for Station in its own folder, the folder next to it, `C:\Hyperwave\` (where Station's installer puts it), `%APPDATA%\HyperwaveStation`, and `Hyperwave` folders on your Desktop, Downloads and Documents.
+- **Hyperwave Station 3.0 and later** are music only, but they keep your old deck, OBS, Streamer.bot and chat settings in their settings file, so everything above still comes over.
 - Command uses ports **7580 / 7581 / 7582** and Station uses **7575 / 7576 / 7577**, so you can run both while you test.
 - **When Station isn't running,** Command Center also answers on Station's overlay address (`127.0.0.1:7575`), so chat and Now Playing browser sources made for Station keep working without changes.
 - Streamer.bot actions that send requests to Station (port **7575**, e.g. `/api/sr` for song requests) should be changed to `7580` when you switch over for good.
@@ -836,7 +867,8 @@ Every update gets an entry in `CHANGELOG.md` and on the dashboard's **What's new
 
 Command Center checks **github.com/TaiiRepublic/Hyperwave-Command** for new versions when it starts and every six hours.
 - **Version in the menu:** under the app name. It's **green** when you're up to date. It's **red** when a new version is out, with a red **"vX is out · Update"** link under it. The **tray icon** gets a red dot and an **Update to Command Center …** item too.
-- **Update card:** at the top of the **Command Center** page, it shows what's new in that version before you do anything.
+- **Update box:** when a new version is out, a box pops up as Command Center starts, with what's new, **Update now** and **Later**. **Later** waits until the next time you start Command Center. The same notes stay on the **Command Center** page as a card.
+- **Window closed?** Windows shows a notification from the tray icon. Click it to open Command Center.
 - **Update now** downloads the release, checks the download, swaps in the new version and restarts by itself. The window reloads on the new version.
 - **If you're live**, it asks first, because overlays blank out for a few seconds while it restarts.
 - **Never touched:** settings, sign-ins, alerts, overlays, points, Sensors history, uploads and the `web` folder.
@@ -855,7 +887,6 @@ Ideas for the next beta builds, roughly in order. Each one gets its own version 
 - **Chat games:** bring Homeworld Fleet Battles, trivia and Phasmo betting into the bot, with points.
 - **Custom widgets:** paste your own HTML/CSS/JS as a sandboxed widget, then share widget and overlay **theme packs** (one file with the overlay, alerts and pictures).
 - **Hyperwave Cloud (optional):** a hosted relay so the bot and overlays keep running when your PC is off. It would also handle official Kick webhooks, a public tip page through a payment provider (Stripe or PayPal handle the money), and Streamer.bot-free YouTube. This needs hosting costs and real security work, so it comes after the local app is solid.
-- **Shared sign-ins:** sign in to Twitch, Kick and YouTube once and let Sensors use the same connection as alerts and the chatbot.
 
 ---
 
