@@ -1,6 +1,6 @@
 # Hyperwave Command Center
 
-**Version 0.6.1-beta** · by TaiiRepublic · free for every streamer
+**Version 0.8.1-beta** · by TaiiRepublic · free for every streamer
 
 Hyperwave Command Center is a complete streamer suite in one small Windows app. It's built to replace StreamElements-style tools, but it's simpler, it runs on your own PC, and it works across **Twitch, Kick, YouTube and TikTok** at the same time.
 
@@ -160,6 +160,13 @@ This is the page to keep open while you stream. On a wide screen it shows three 
 
 **Activity** lists every event from every platform, newest first. **↻** replays that alert. Replays aren't counted twice.
 
+**Watching** (the third tab) shows how many people are watching each of your channels right now, and who:
+- **Twitch:** the viewer count and everyone signed in and in your chat, with how long they've been there and whether they're chatting or lurking. Twitch never names people watching while logged out, so it says "and N watching logged out".
+- **Kick:** the viewer count, and everyone who has chatted this stream (Kick doesn't share a viewer list).
+- **YouTube:** the viewer count (YouTube doesn't name viewers). **TikTok:** the viewer count and TikTok's top viewers.
+- Mods (🛡), VIPs (💎) and subs (★) are marked, and so are **first visits** and accounts Sensors flagged as **likely bots**. Click a name to open it in Sensors.
+- The names come from **Sensors**. If Sensors isn't watching one of your channels yet, click **Show who's watching** in that channel's row.
+
 **Channel points** (the tab next to Activity) works with Twitch and Kick:
 - **Waiting redemptions** for rewards made in Command: **✓** marks one done and **↩** refunds the points.
 - **Rewards**: **Pause**/**Resume** and **Turn off**/**Turn on**. Twitch and Kick only let the app that made a reward change it, so rewards you made on Twitch or Kick themselves show without buttons. Use **Make a new reward** (platform, name, cost, description, and whether the viewer types a message) to make ones you can control here.
@@ -176,7 +183,7 @@ Click **⧉ Pop out** on the **Chat** box or next to the **Activity** tab. You g
 4. Drag the dock wherever you like. OBS keeps it there.
 
 - The **chat dock** has everything the Chat box has: every platform's chat, sending, emotes, and **Delete**, **10m** and **Ban**.
-- The **activity dock** shows events as they come in, with a **Points** tab for channel point redemptions, plus **Pause** and **Skip** for alerts.
+- The **activity dock** shows events as they come in, with a **Points** tab for channel point redemptions and a **Watching** tab (who's watching), plus **Pause** and **Skip** for alerts.
 - **A−** and **A+** change the text size in each dock. The light in the corner is green while Command Center is running.
 
 **Test an alert**, **Your OBS links**, **Restart countdowns** and **Roll the credits** are on **Overlays & widgets** (section 7).
@@ -240,12 +247,18 @@ Leave **Alerts from Kick** ticked.
 
 Copy the **Client ID** and **Client Secret** into Command, click **Save**, then click **Sign in to Kick** and approve.
 
-### YouTube: chat, members, Super Chats, new subscribers
+### YouTube: chat, members, Super Chats
 
-YouTube only lets approved apps read live chat, so Command uses Streamer.bot's YouTube connection.
+**Watch only with just your channel.** Command Center reads your live chat straight from YouTube, the way YouTube's own pop-out chat does. No sign-in, no API key and nothing to install.
 
-**In Streamer.bot:**
-1. **Platforms → YouTube**: sign in with your YouTube account.
+1. **Connections → YouTube**: type your YouTube **@handle** (or paste your channel link) in **YouTube @handle or channel link**, e.g. `@TaiiRepublic`.
+2. Leave **YouTube alerts** ticked and click **Save**.
+
+Command Center checks every minute and connects by itself when you go live. You get chat (with YouTube's emojis) for your overlays, the deck and the chatbot, plus Super Chats, Super Stickers, new members, gifted memberships, deleted messages and your viewer count.
+
+**Watch only means nothing goes back to YouTube.** Your replies and the chatbot can't post in YouTube chat, and Delete, 10m and Ban don't work there. To post in YouTube chat, also connect **Streamer.bot**:
+
+1. In Streamer.bot, **Platforms → YouTube**: sign in with your YouTube account.
 2. **Servers/Clients → WebSocket Server**:
 
    | Field | Value |
@@ -256,23 +269,26 @@ YouTube only lets approved apps read live chat, so Command uses Streamer.bot's Y
    | Authentication | ticked (recommended) with a password you choose |
 
    Click **Start Server**.
+3. Connect Streamer.bot in its own box on Connections, then tick **Use Streamer.bot for YouTube** in the YouTube box.
 
-**In Command (Connections → YouTube):**
-1. Tick **Connect to Streamer.bot**.
-2. Fill in Address `127.0.0.1`, Port `8080`, and the password if you set one.
-3. Tick **YouTube chat** and **YouTube alerts**, then click **Save**.
-
-YouTube chat events only arrive while you have a live broadcast running.
+While Command Center reads YouTube itself, it skips Streamer.bot's copy of YouTube chat so nothing shows twice. New subscribers (follows) only come through Streamer.bot.
 
 ### TikTok: chat, gifts, follows, shares, likes
 
-1. Install **TikFinity** from **tikfinity.zerody.one**, sign in, and connect it to your LIVE. Leave it open while you stream.
-2. **Connections → TikTok**: tick **Connect to TikFinity** and **TikTok alerts**. Leave the port at `21213` unless you changed it in TikFinity. Click **Save**.
+**Watch only.** Command Center reads your LIVE straight from TikTok. Nothing to install, no TikTok sign-in.
+
+1. **Connections → TikTok**: type your TikTok **@name**, e.g. `@taiirepublic`.
+2. Leave **TikTok alerts** ticked and click **Save**.
+
+Command Center checks every minute and connects by itself when you go LIVE. You get chat for your overlays, the deck and the chatbot, plus gifts, follows, shares, subscribers, likes and your viewer count (with TikTok's top viewers).
+
+- **Watch only means nothing goes back to TikTok.** TikTok doesn't let apps post in LIVE chat, delete messages or ban, so the chatbot only listens there.
+- **How it connects:** TikTok only accepts the live connection when it's signed. Command Center uses the free **Euler Stream** signing service, the same one most TikTok LIVE tools use. It only gets your LIVE's room number: no sign-in and nothing about you. The free service allows a few connections a minute from one internet connection, which is plenty for one stream. If you ever need more, paste an Euler Stream key under **How it connects, and using TikFinity instead**.
+- **Prefer TikFinity?** It still works: open **TikFinity** (tikfinity.zerody.one), connect it to your LIVE, and tick **Also read TikTok through TikFinity** in the same section (port `21213` unless you changed it). You can use both; nothing shows twice.
 
 How TikTok events behave:
 - A gift sent as a streak alerts **once** when the streak ends, showing the total (e.g. "5× Rose").
 - Likes are added up per viewer and sent every 20 seconds. They're off in Alerts by default.
-- TikTok doesn't allow apps to post in LIVE chat, so the chatbot only listens there.
 
 ### Tips
 
@@ -339,10 +355,13 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 
 ## 6. Alerts
 
-**Dashboard → Alerts.** Pick an alert on the left; its switch turns it on or off. Everything for that alert is on one page, under the preview:
-- **▶ Preview** plays the alert with its sound and animation.
-- **Send a test to OBS** saves your changes and plays the alert on stream.
+**Dashboard → Alerts.** Pick an alert on the left; its switch turns it on or off. The big box at the top is **your stream** (1920 × 1080): where an alert sits in it is exactly where it pops up in OBS.
+
+- **▶ Preview** plays the alert in that box, with its sound and motion. Click the box to stop it.
+- **Send a test to OBS** saves your changes and plays the alert on stream straight away. Under the button it says what happened: **Playing in OBS now**, in line behind an alert that's showing, or what to fix (no overlay open in OBS, or OBS didn't get it). Tests always play, even when the alert is switched off or alerts are paused, and pressing it again replaces the test that's showing. When you're editing the main design, the test uses an amount under your variations, so you see the design you're editing.
+- **On screen for** is how long the whole alert stays up.
 - **Save alerts** updates every OBS source at once, with no refresh needed.
+- **Copy OBS link** (top of the page) copies the alerts link. In OBS: **Sources → + → Browser**, paste it, Width 1920, Height 1080. Overlays refresh themselves when Command Center updates.
 
 | Kind | Comes from |
 |---|---|
@@ -357,43 +376,53 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 | TikTok gift | TikTok gifts (once per streak) |
 | Share | TikTok shares (off by default) |
 | Likes | TikTok likes, added up every 20 s (off by default) |
+| First chatter | The very first time someone ever chats on your channels, any platform (see below) |
+| Special greeting | People you pick, the first time they chat each stream (see below) |
 
-### Your own pictures, animations and sounds (the quick way)
+### First chatter and Special greetings
 
-1. Pick the alert on the left (for example **Raid / host**).
-2. **Drag your files onto the preview.** Pictures, GIFs and videos become the alert's picture, and sound files become its sound. You can drop several at once.
-   - Or click **⬆ Upload pictures or videos** / **⬆ Upload sounds**.
-   - Or click **From my library** to reuse something you uploaded before. Click a file to add it, click again to remove it.
-3. Click **▶ Preview**, then **Save alerts**.
+- **✧ First chatter** plays the very first time someone ever says something in your chat, on Twitch, Kick, YouTube or TikTok. Command Center remembers everyone who has chatted (in `command-data\chatters.json`) and never forgets them, so it happens once per person, ever. Everyone who already had loyalty points counts as having chatted. You and chat bots like Nightbot never set it off. To also welcome them in chat, turn on **First chatter** under **Chatbot → Thank-you messages**.
+- **♛ Special greeting**: pick **Special greeting** on the left and click **+ Add someone**. Add as many people as you like. For each one:
+  - the **platform** (or Any platform) and their **username**
+  - **how they're greeted**: **Alert + chat**, **Alert only** or **Chat only**
+  - **On stream**: the words on the alert (use `{name}` for their name, like `All hail {name}!`)
+  - **In chat**: what the chatbot says (leave it empty to say the same as the alert)
+  - their **sound**: a built-in one, one of your sounds, or **⬆ Upload a sound…**
+
+  The first time they chat in each stream, they're greeted the way you picked. **Test** plays their alert in OBS, **▶** plays their sound, and the tick turns one person off without deleting them. People on the list get their greeting instead of the First chatter alert. The chat message goes to the platform they chatted on (TikTok doesn't let apps post in chat, so TikTok viewers only get the alert).
+- Both look like any other alert: set the panel, text, spot on your stream and sound below. A new stream starts when you go live on Twitch, when you click **New session** on the Command Center page, or after 8 quiet hours.
+
+### Make an alert in four steps
+
+1. **Pick a panel** in the **🖼 Panel** box: a ready-made one (**Fleet console**, **Neon frame**, **Hyperspace**, **Glass card**, **Slim banner**, **Fleet emblem**), the **viewer's profile picture**, **No panel**, or **+ Add your own** (PNG, JPG, GIF, WebP, WebM or MP4). You can also drag a file straight onto the page. The ready-made panels use the alert's own colour. The **🗑** on one of your own files deletes it for good (and takes it off any alert that used it).
+2. **Type what it says** in the **✎ Text** box, like `{name} just enlisted`. Click a fill-in to add it where your cursor is. Press Enter for a second line.
+3. **Drag them where you want them** on your stream:
+   - Drag the **panel** (orange box) or the **words** (blue box) to move them. They snap to the middle when you get close.
+   - Drag a **corner** to make it bigger or smaller. Your own panels keep their shape; the ready-made panels stretch to fit your words. Dragging a corner of the words makes the letters bigger or smaller too, and the side handles make the words wider or narrower.
+   - **Hold Alt and drag an edge** of the panel to cut that side off, like cropping a source in OBS. **Undo crop** in the Panel box puts it back.
+   - **Words move with the panel** (ticked) moves both together when you drag the panel. Untick it to move the panel on its own.
+   - **Move it to** puts the whole alert in a corner, an edge or the middle in one click.
+   - **Show my stream behind it** puts a picture of what OBS is showing behind the box, so you can see what the alert will cover (OBS must be connected).
+   - Click a box and use the arrow keys to nudge it (Shift moves it further).
+4. **Pick a sound** in **🔊 Sound**, then click **Save alerts**.
 
 | File | Works as |
 |---|---|
 | PNG, JPG, WebP | still picture (up to 8 MB) |
 | GIF | animated picture (up to 8 MB) |
-| **WebM** | animation or video **with transparency**, like the rotating Taii logo (up to 40 MB) |
-| MP4 | video without transparency (up to 40 MB) |
+| **WebM** | animation or video **with see-through parts**, like the rotating Taii logo (up to 40 MB) |
+| MP4 | video without see-through parts (up to 40 MB) |
 | MP3, WAV, OGG, M4A, FLAC | sound (up to 15 MB) |
 
-- **Several pictures or sounds** on one alert play **one at random** each time. That's great for a set of raid GIFs or a pack of follow sounds.
-- **Your own sound replaces the built-in one** when you upload it. To mix them, click built-in sounds back on.
-- **Built-in sounds** (Chime, Hyperspace warp, Console blip, Fanfare, Fleet alarm, Coin) are made by the app, so there are no files to keep. Click one to hear it and pick it.
-- **✕** on a picture or sound removes it from the alert. The file stays in your library. Remove the last picture to go back to the profile picture (or no picture).
-- **Sound → None** makes the alert silent.
+### The boxes under your stream
 
-### The sections
-
-- **🖼 Picture or animation**
-  - your pictures (a thumbnail each)
-  - **When I have no picture**: show the viewer's profile picture, always show the profile picture, or show no picture at all
-  - **Picture motion**: Still, Float, Pulse, Bounce, Swing, Spin, Shake or Jelly wobble
-  - **Picture height**
-- **🔊 Sound**
-  - built-in sounds and your sounds
-  - **Volume**
-  - **Start the sound after** (0–5 s), to line a sound up with your animation
-- **✎ Words**
-  - main line, second line and small heading
-  - **Click a fill-in** to put it where your cursor is
+- **🖼 Panel**
+  - the panels to pick from (Ctrl-click several to play one at random each time), and 🗑 to delete your own files
+  - **Comes in**: Fade, Swipe in from the left or right, Pop in, Drop in from the top, Rise up, Zoom, Bounce, Wipe, Glitch, Hyperspace warp, Spin, Flip, or Just appear
+  - **Goes out**: Fade, Swipe out left or right, Pop out, Fly up, Drop away, Zoom out, Glitch out, Hyperspace jump, Spin away, or Just disappear
+  - **While it's showing**: Still, Float, Pulse, Bounce, Swing, Spin, Shake or Jelly wobble
+- **✎ Text**
+  - **What it says**, with fill-ins:
   | Fill-in | Becomes |
   |---|---|
   | `{name}` | the viewer's name |
@@ -406,24 +435,17 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
   | `{platform}` | Twitch, Kick, YouTube, TikTok… |
   | `{message}` | what the viewer wrote |
 
-
-  - Fill-ins in the main line glow in the accent colour.
-- **◐ Look**
-  - **Layout:** Fleet console panel, Picture beside text, Picture above text, Text over picture, or Slim banner.
-  - **Font:** 16 to choose from.
-  - Text size, whole-alert size, and text, accent and panel colours.
-  - **Your own panel:** upload a PNG, GIF, WebP or WebM frame or background (or pick one **From my library**). It's shown behind the whole alert. Choose **Stretch to the alert**, **Fit inside** or **Fill and crop the edges**, and set the **Space inside the panel**. **Match the panel's shape** makes the alert the same shape as your art.
-  - **Place the words myself:** tick it, then **drag the dashed box** on the preview to move the words and **drag its corner** to resize them. The words shrink to fit the box. Set the alert's width and height, and line the words up left, centre or right. **Reset the words box** puts it back.
-  - **Text over picture** keeps the words inside the picture: they wrap and shrink to fit.
-  - **Copy this look to every alert** gives all the other alerts the same layout, font, sizes, colours and motion. Their accent colours, words, pictures and sounds stay as they are.
-- **➤ Motion**
-  - **Comes in:** Fade, Drop down, Rise up, Slide from right or left, Zoom, Bounce, Hyperspace warp, Flip, Spin, Glitch or Heavy drop.
-  - **Goes out:** Fade, Fly up, Drop away, Slide left or right, Zoom out, Hyperspace jump, Spin away or Glitch out.
-  - **Name animation:** Wave, Pulse, Glow, Shake or Rainbow.
-  - **Animation speed** and **On screen for** (seconds).
+  - **Font** (16 to choose from), **Size**, **B** bold, *I* italic, U underline, line up left, centre or right, **Text** colour, **Name** colour (for the name and numbers), **Shadow** and **Outline**
+  - **Comes in** and **Goes out**: the same choices as the panel, so the words can swipe in after the picture lands
+  - **Make the name move**: Wave, Pulse, Glow, Shake or Rainbow
+  - **Shows up after** (0–5 s) and **Stays for** (0 = the whole alert)
+  - **Also show what the viewer wrote** and **Show which platform it came from**
+- **🔊 Sound**: built-in sounds or your own, **Volume**, and **Start the sound after** (0–5 s) to line it up with your animation. Pick more than one and one plays at random.
 - **⚙ When it shows:** only when the amount is at least a number, and only from certain platforms.
 
-**Apply a look to every alert** (top of the page) gives every alert a theme in one click: Fleet console, Hyperspace jump, Big picture, Slim banner or Arcade. Words, pictures and sounds stay as they are.
+**Give every alert a look** (top of the page) gives every alert one of the ready-made styles in one click: panel, spot, text style and motion. Words and sounds stay as they are. **Copy to every alert** copies the alert you're on (panel, spot, text style and motion) to all the others.
+
+Alerts you made before 0.7.1 carry over by themselves: your panel or picture, words, font, colours, motion and sounds come along, placed near the top in the middle. Drag them where you want them, then click **Save alerts**.
 
 ### Variations: a different alert for big moments
 
@@ -446,7 +468,7 @@ Starter variations come included: **Resub** (2+ months), **Big raid** (25+ pilot
 **Dashboard → Overlays & widgets.** Each overlay is **one Browser source** in OBS. Copy its link and add it the same way as in the quick start.
 
 Under the overlays and the widget library:
-- **Test an alert** sends a pretend event to every overlay. You can pick the platform and amount. Tests are never counted in stats or credits.
+- **Test an alert** sends a pretend event to every overlay. You can pick the platform and amount. Tests are never counted in stats or credits, and the page says whether OBS showed it.
 - **Your OBS links** has the links for your first overlays and for **Alerts only**, ready to copy.
 - **On-screen controls:** **Restart countdowns** resets every Countdown widget, and **Roll the credits** restarts every End credits widget.
 
@@ -486,7 +508,7 @@ Saving updates OBS at once. Changes appear on stream while you work, so tweak po
 
 | Widget | What it does | Main settings |
 |---|---|---|
-| ⚡ Alert box | Plays your alerts (designed on the Alerts page) | Which alerts, size |
+| ⚡ Alert box | Plays your alerts, each exactly where you placed it on the Alerts page (the box itself can sit anywhere) | Which alerts |
 | 💬 Chat | Twitch + Kick + YouTube + TikTok chat with emotes | Style (Fleet console, Bubbles, Text with shadow, Plain), platforms, font, size, colour, most messages, hide after, platform tags, badges, profile pictures, hide `!commands`, hide bot names, newest at the top |
 | 🎯 Goal bar | Progress bar | Title, what it counts, start from, target, manual value, bar colours, height, percent, auto-raise the target when reached |
 | 📜 Recent events | Latest follows, subs, tips… | Which events, how many, style, font |
@@ -700,6 +722,8 @@ Everything from Hyperwave Station 2.0 is built in, as three tools under **Hyperw
 
 **💬 Chat overlay** is its own page: open the **Hyperwave Chat** designer and follow the five steps to add it to OBS.
 
+In the designer, under **Chat sources**, set **YouTube** and **TikTok** to **Through Hyperwave Command Center** (the default for new designs) to show the YouTube and TikTok chat Command Center reads itself. That's **watch only**: those messages show on your overlay, but nothing is posted back to YouTube or TikTok (posting in YouTube chat needs Streamer.bot; TikTok doesn't allow it at all). Command Center has to be running for them to show.
+
 The full guide is in `docs/Music-Deck-DJ-Guide.md`.
 
 > **Spotify users:** Command uses port 7580, so add `http://127.0.0.1:7580/callback` as an extra **Redirect URI** in your Spotify developer app (keep Station's 7575 one if you still use Station).
@@ -827,6 +851,7 @@ Command keeps Hyperwave Station's protections:
 | Problem | Fix |
 |---|---|
 | Overlay is blank in OBS | Check Command Center is running (its icon is in the tray). Open the overlay link in your browser: a note in the corner says what's wrong (these notes never show inside OBS). |
+| Test alerts don't show in OBS | Read the line under **Send a test to OBS**: it says what's wrong. **Nothing showed it** means no overlay is open: add a Browser source with your overlay link (or `http://127.0.0.1:7580/alerts`, 1920 × 1080), and make sure OBS runs on the same PC. **No OBS source got it** means the Browser source is hidden, in another scene, or needs a right-click → **Refresh**. |
 | No sound from alerts on stream | In the OBS Browser source, tick **Control audio via OBS**, and check the source isn't muted in the Audio Mixer. |
 | Twitch alerts don't arrive | **Connections → Twitch** should show **✓ Listening for:** with your events. If it lists **Not available**, click **Sign in again** to give Command the missing permission. |
 | "Twitch refused every event" | Your sign-in is from another app or has expired. Click **Sign in again**. |
