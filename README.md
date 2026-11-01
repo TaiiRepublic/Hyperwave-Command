@@ -1,15 +1,15 @@
 # Hyperwave Command Center
 
-**Version 0.8.1-beta** · by TaiiRepublic · free for every streamer
+**Version 0.8.4-beta** · by TaiiRepublic · free for every streamer
 
 Hyperwave Command Center is a complete streamer suite in one small Windows app. It's built to replace StreamElements-style tools, but it's simpler, it runs on your own PC, and it works across **Twitch, Kick, YouTube and TikTok** at the same time.
 
 | | What you get |
 |---|---|
 | ⚡ **Alerts** | Follows, subs, gifts, bits and Kicks, raids and hosts, tips, Super Chats, channel points, and TikTok gifts, shares and likes, all designed on one page |
-| ▣ **Overlays** | A drag-and-drop **Overlay Studio** with 15 widgets: chat, goals, event lists, countdowns, credits, emote wall and more |
+| ▣ **Overlays** | A drag-and-drop **Overlay Studio** with 18 widgets: chat, goals, event lists, countdowns, a giveaway wheel, credits, emote wall and more |
 | ✦ **Chatbot** | Custom commands, timers, thank-you messages, built-in commands |
-| 🎲 **Chat modules** | Hyperspace Gamble, Salvage Run, Ion Duel, Supply Drop and the Launch Alert, all renamable |
+| 🎲 **Chat modules** | Giveaways with an on-screen countdown and prize wheel, a `!timer` countdown, Hyperspace Gamble, Salvage Run, Ion Duel, Supply Drop and the Launch Alert, all renamable |
 | ◆ **Loyalty points** | Name them whatever you like (e.g. **-RUs-**) and viewers earn them on every platform |
 | ⛨ **Moderation** | Link, caps, symbol, word and length filters |
 | ◎ **Sensors** | Everything from Hyperwave Sensors: channel analytics, bot and spam flags with an options menu, lurkers and viewbot clusters, Deep scan, History, best times to stream, earnings on your own channels, and your phone as a remote |
@@ -34,7 +34,7 @@ Everything is set up in Command Center's own window, in the Hyperwave look (plat
 7. [Overlays and the Overlay Studio](#7-overlays-and-the-overlay-studio)
 8. [Widget reference](#8-widget-reference)
 9. [Chatbot](#9-chatbot)
-10. [Chat modules: point games and the Launch Alert](#10-chat-modules)
+10. [Chat modules: giveaways, chat timer, point games and the Launch Alert](#10-chat-modules)
 11. [Loyalty points](#11-loyalty-points)
 12. [Moderation](#12-moderation)
 13. [Sensors: analytics and bot & spam review](#13-sensors)
@@ -381,15 +381,18 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 
 ### First chatter and Special greetings
 
-- **✧ First chatter** plays the very first time someone ever says something in your chat, on Twitch, Kick, YouTube or TikTok. Command Center remembers everyone who has chatted (in `command-data\chatters.json`) and never forgets them, so it happens once per person, ever. Everyone who already had loyalty points counts as having chatted. You and chat bots like Nightbot never set it off. To also welcome them in chat, turn on **First chatter** under **Chatbot → Thank-you messages**.
+- **✧ First chatter** plays the very first time someone ever says something in your chat, on Twitch, Kick, YouTube or TikTok. Command Center remembers everyone who has chatted (in `command-data\chatters.json`) and never forgets them, so it happens once per person, ever. Everyone who already had loyalty points counts as having chatted. You and chat bots like Nightbot never set it off. In the First chatter box, pick **how they're welcomed**:
+  - **Alert + chat** or **Alert only**: your alert on stream, set up below like any alert. Use a ready-made panel, your own, or **No panel**, with or without a **Sound** (**None** for a silent alert).
+  - **Chat only**: just a message in chat, plus an optional **Sound on stream** that plays with nothing shown (or **No sound**). The alert designer hides itself, since nothing shows.
+  - With chat, type **what the chatbot says** (`{user}` is their name). **Test it** does the real thing and says whether each part worked.
 - **♛ Special greeting**: pick **Special greeting** on the left and click **+ Add someone**. Add as many people as you like. For each one:
   - the **platform** (or Any platform) and their **username**
   - **how they're greeted**: **Alert + chat**, **Alert only** or **Chat only**
   - **On stream**: the words on the alert (use `{name}` for their name, like `All hail {name}!`)
   - **In chat**: what the chatbot says (leave it empty to say the same as the alert)
-  - their **sound**: a built-in one, one of your sounds, or **⬆ Upload a sound…**
+  - their **sound**: a built-in one, one of your sounds, or **⬆ Upload a sound…**. For **Chat only** people the sound still plays on stream, with nothing shown (pick **No sound** for silence).
 
-  The first time they chat in each stream, they're greeted the way you picked. **Test** plays their alert in OBS, **▶** plays their sound, and the tick turns one person off without deleting them. People on the list get their greeting instead of the First chatter alert. The chat message goes to the platform they chatted on (TikTok doesn't let apps post in chat, so TikTok viewers only get the alert).
+  The first time they chat in each stream, they're greeted the way you picked. **Test** does the real thing: it plays their alert or sound in OBS and posts their line in your real chat, then says whether each part worked (and why not, if it didn't). **✓ Greeted this stream** shows who has been greeted, and **Greet again** lets them be greeted once more. **▶** plays their sound, and the tick turns one person off without deleting them. People on the list get their greeting instead of the First chatter alert. The chat message goes to the platform they chatted on (TikTok doesn't let apps post in chat, so TikTok viewers only get the alert).
 - Both look like any other alert: set the panel, text, spot on your stream and sound below. A new stream starts when you go live on Twitch, when you click **New session** on the Command Center page, or after 8 quiet hours.
 
 ### Make an alert in four steps
@@ -405,6 +408,8 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
    - **Show my stream behind it** puts a picture of what OBS is showing behind the box, so you can see what the alert will cover (OBS must be connected).
    - Click a box and use the arrow keys to nudge it (Shift moves it further).
 4. **Pick a sound** in **🔊 Sound**, then click **Save alerts**.
+
+**Where the sounds play:** every alert sound (special greetings and chat-only greetings included) plays from your alerts **Browser source in OBS**, the one you add with **Copy OBS link**. Command Center itself plays nothing on stream. For your stream to hear it, that source needs **Control audio via OBS** ticked (in OBS: right-click the source → **Properties** → tick it → **OK**). With OBS connected, the **🔊 Sound** box checks this for you and **Turn it on for me** ticks it. The source then shows in the OBS Audio Mixer, where you set its volume. To hear it yourself too: **Edit → Advanced Audio Properties** → **Monitor and Output**.
 
 | File | Works as |
 |---|---|
@@ -515,6 +520,9 @@ Saving updates OBS at once. Changes appear on stream while you work, so tweak po
 | 🏷 Latest / top supporter | "Latest follower: Name" or "Top cheer: Name" | Event, latest or top, label, amount |
 | 🔢 Counter | A number (followers today, bits this stream, likes…) | What it counts, label, add to it |
 | ⏱ Countdown | Counts down from N minutes | Minutes, label, text at zero (restart from the Command Center) |
+| ⏳ Chat timer | The `!timer` countdown (section 10) | Big numbers / bar / ring, title, text at zero, hide after, warning colour, sound at zero, font, colours |
+| 🎁 Giveaway countdown | Time left to enter a giveaway, how to enter, how many entered | Big numbers / bar / ring, title, how-to-enter line, newest names, text when it closes, font, colours |
+| 🎡 Giveaway wheel | Prize wheel of everyone who entered; spins and lands on the winner | Colours (Fleet, Neon, TaiiRepublic, Steel, Rainbow), when it shows, title, winner banner, tick and win sounds, confetti, font, colours |
 | 🔤 Text | Any words | Text, font, size, colour, glow, outline, weight, align, CAPITALS, animation |
 | 🖼 Picture / video | Logo, frame, GIF or transparent WebM | File or link, fit, opacity, rounded corners, slow spin |
 | 🎵 Now playing | The song playing, with art and progress | Font, colours, "requested by", hide when idle |
@@ -603,7 +611,7 @@ The song-request and DJ chat commands from Station (`!sr`, `!skip`, `!vol` …) 
 
 ## 10. Chat modules
 
-**Dashboard → Chat modules.** These are Hyperwave's own takes on the classic chat games, in the fleet's voice. Each card shows a chat preview using your current wording, an on/off switch, and **⚙ Edit**. In Edit you can rename the module and **every command and reply**. **Back to the original words** undoes your changes.
+**Dashboard → Chat modules.** The **Giveaway** and the **Chat timer** sit at the top (see below). Under them are Hyperwave's own takes on the classic chat games, in the fleet's voice. Each card shows a chat preview using your current wording, an on/off switch, and **⚙ Edit**. In Edit you can rename the module and **every command and reply**. **Back to the original words** undoes your changes.
 
 The point games use **Loyalty points** (section 11) and need points and the chatbot switched on. Mods and you skip game cooldowns.
 
@@ -623,6 +631,53 @@ How they work:
 Fill-ins for the games are listed at the top of each Edit window. For example, Hyperspace Gamble uses `{user}` `{amount}` `{points}` `{pointsname}` `{cmd}`.
 
 **Chat alerts** ("Thank you for following…") are the **Thank-you messages** on the Chatbot page (section 9).
+
+### 🎁 Giveaway
+
+A countdown on screen while viewers enter, then a prize wheel you spin. It's free for viewers (no points needed) and works on Twitch, Kick and YouTube.
+
+**Set it up once:**
+1. **Dashboard → Chat modules → Giveaway.**
+2. **What are you giving away?** e.g. `a Steam key for Homeworld 3`.
+3. **How long viewers can enter:** minutes and seconds, e.g. `5` min `0` sec.
+4. **How viewers enter** (one or both):
+   - **Chat command:** `enter` means viewers type `!enter`. Keep it different from your Fleet Battles commands (`!join`, `!battle`, `!fleet`, `!retreat`).
+   - **Twitch channel point reward:** make the reward on Twitch first (Creator Dashboard → Viewer Rewards → Channel Points → Manage Rewards → **Add New Custom Reward**), then type its title here exactly, e.g. `Enter the giveaway`. Needs your Twitch sign-in on Connections.
+5. **Who can enter with the command:** Everyone, or Subs, VIPs and mods only. Tick platforms to limit it (none ticked = all).
+6. **How long the wheel spins:** 30 seconds by default.
+7. **Show it on stream:** press **Make the giveaway overlay**, then in the studio press **Copy OBS link**. In OBS: Sources → **+** → **Browser**, paste the link, width `1920`, height `1080`. Nothing shows until a giveaway is running.
+
+**Run a giveaway:**
+1. Press **▶ Start giveaway**. The countdown appears on stream and the chatbot announces it.
+2. Viewers type `!enter` (or redeem the reward). Each person is entered once. You see every name in the **Console**.
+3. At zero, entries close by themselves. (**⏹ Close entries now** ends early.)
+4. Press **🎡 Spin the wheel**. The wheel spins and lands on the winner, who is announced on screen and in chat.
+5. Winner didn't answer? **↺ Redraw** takes them off the wheel, then spin again. **✓ Done, clear the screen** hides it all.
+
+While a giveaway is running, the same buttons sit at the top of the **Command Center** page, and a **Hyperwave Deck** button can do **Giveaway → Spin the wheel** (or start, close, redraw, clear).
+
+**Chat messages** (inside the Giveaway box): when it starts, when entries close, the winner, and an optional reply to each entry. Fill-ins: `{prize}` `{cmd}` `{redeem}` `{time}` `{count}` `{winner}` `{user}`. Untick **Announce the giveaway in chat** to keep it on screen only.
+
+**+ 10 pretend entries** (while entries are open) fills the wheel with test names so you can try your overlay.
+
+### ⏳ Chat timer
+
+A countdown on stream that you or your mods start from chat, any time.
+
+| Type in chat | What happens |
+|---|---|
+| `!timer 5` | 5 minutes |
+| `!timer 90s` · `!timer 1:30` · `!timer 1h` | 90 seconds, 1 min 30 sec, 1 hour |
+| `!timer 10 BRB` | 10 minutes with the title **BRB** |
+| `!timer +2` · `!timer -1` | add 2 minutes, take 1 away |
+| `!timer pause` · `!timer resume` | pause and carry on |
+| `!timer stop` | cancel it |
+
+Typing a new time replaces the running timer.
+
+**Set it up once:** **Dashboard → Chat modules → Chat timer**, press **Make the timer overlay**, then **Copy OBS link** in the studio and add it to OBS as a Browser source. Change its look in the studio: big numbers, a draining bar or a ring, title, text at zero, a warning colour for the last seconds, a sound at zero, hide it a few seconds after zero, font, size and colours.
+
+**Who can use it:** Mods (default), Mods and VIPs, or Everyone. You can always. Rename the command if you like. The **Console** has quick 1 / 5 / 10 / 15 / 30 min buttons, a box for any time, **+1 min**, **−1 min**, **Pause** and **Stop**. A **Hyperwave Deck** button can run any timer command too (e.g. `5` or `stop`).
 
 ---
 
@@ -852,7 +907,8 @@ Command keeps Hyperwave Station's protections:
 |---|---|
 | Overlay is blank in OBS | Check Command Center is running (its icon is in the tray). Open the overlay link in your browser: a note in the corner says what's wrong (these notes never show inside OBS). |
 | Test alerts don't show in OBS | Read the line under **Send a test to OBS**: it says what's wrong. **Nothing showed it** means no overlay is open: add a Browser source with your overlay link (or `http://127.0.0.1:7580/alerts`, 1920 × 1080), and make sure OBS runs on the same PC. **No OBS source got it** means the Browser source is hidden, in another scene, or needs a right-click → **Refresh**. |
-| No sound from alerts on stream | In the OBS Browser source, tick **Control audio via OBS**, and check the source isn't muted in the Audio Mixer. |
+| No sound from alerts on stream | Sounds play from the alerts Browser source in OBS. Tick **Control audio via OBS** in its Properties (or click **Turn it on for me** in the Alerts page's 🔊 Sound box), and check it isn't muted in the Audio Mixer. |
+| A greeting doesn't post in chat | Click **Test** on that person: it says whether the chat post worked and why not (usually the Twitch sign-in or **Connections → Chat replies**). Each person is greeted once per stream; **Greet again** resets it. |
 | Twitch alerts don't arrive | **Connections → Twitch** should show **✓ Listening for:** with your events. If it lists **Not available**, click **Sign in again** to give Command the missing permission. |
 | "Twitch refused every event" | Your sign-in is from another app or has expired. Click **Sign in again**. |
 | Kick chat works but no Kick alerts | Paste your **Channel ID** (see section 5). Kick's follow alerts depend on Kick sending them, which isn't guaranteed. |
@@ -872,6 +928,9 @@ Command keeps Hyperwave Station's protections:
 | TwitchTracker says it's busy or blocked the request | TwitchTracker sometimes turns apps away for a while. Sensors tries again every 6 hours; everything else in History keeps working. |
 | The TwitchTracker box says it couldn't read the page | TwitchTracker changed its page. Click **Save what TwitchTracker sent** and send the file to TaiiRepublic. |
 | TwitchTracker doesn't know a channel | It only tracks channels after they've streamed. Check again after the next stream. |
+| Redeeming the giveaway reward doesn't enter anyone | Sign in to Twitch on **Connections**, and type the reward's title in the Giveaway box exactly as it is on Twitch. Entries only count while a giveaway is open. |
+| `!timer` does nothing | Check the **Chat timer** switch is on and who can use it (Mods by default). Viewers who can't use it are ignored quietly. |
+| The giveaway wheel or timer makes no sound | Sounds play from the overlay's own Browser source. In OBS, tick **Control audio via OBS** on it and check it isn't muted in the Audio Mixer. |
 | Windows SmartScreen warning | **More info → Run anyway**. |
 | Fonts look plain | Chakra Petch and Inter are built in. Other fonts load from Google Fonts and need internet. |
 
