@@ -1,6 +1,6 @@
 # Hyperwave Command Center
 
-**Version 0.9.7.3-beta** · by TaiiRepublic · free for every streamer
+**Version 0.9.7.9-beta** · by TaiiRepublic · free for every streamer
 
 Hyperwave Command Center is a complete streamer suite in one small Windows app. It's built to replace StreamElements-style tools, but it's simpler, it runs on your own PC, and it works across **Twitch, Kick, YouTube and TikTok** at the same time.
 
@@ -358,13 +358,23 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 
 ## 6. Alerts
 
-**Dashboard → Alerts.** Pick an alert on the left; its switch turns it on or off. The big box at the top is **your stream** (1920 × 1080): where an alert sits in it is exactly where it pops up in OBS.
+**Dashboard → Alerts.** The page has three parts:
 
-- **▶ Preview** plays the alert in that box, with its sound and motion. Click the box to stop it.
-- **Send a test to OBS** saves your changes and plays the alert on stream straight away. Under the button it says what happened: **Playing in OBS now**, in line behind an alert that's showing, or what to fix (no overlay open in OBS, or OBS didn't get it). Tests always play, even when the alert is switched off or alerts are paused, and pressing it again replaces the test that's showing. When you're editing the main design, the test uses an amount under your variations, so you see the design you're editing.
-- **On screen for** is how long the whole alert stays up.
-- **Save alerts** updates every OBS source at once, with no refresh needed.
-- **Copy OBS link** (top of the page) copies the alerts link. In OBS: **Sources → + → Browser**, paste it, Width 1920, Height 1080. Overlays refresh themselves when Command Center updates.
+- **Left: your alert types.** Each type's switch turns all of its alerts on or off at once. Click a type and its alerts open right under it, each with its own switch. **+ Add** makes another alert for that type.
+- **Middle: your stream** (1920 × 1080). Where an alert sits in this box is exactly where it pops up on stream.
+  - **▶ Preview** plays it in the box, with its sound and motion. Click the box to stop it.
+  - **Send a test** saves your changes and plays exactly this alert on stream straight away. Under the button it says what happened: **Playing now**, in line behind an alert that's showing, or what to fix (no overlay open, or your streaming app didn't get it). Tests always play, even when the alert is switched off or alerts are paused.
+  - **■ Stop test alerts** takes every test alert off your stream (and any waiting), and stops its sound. Real alerts aren't touched. It's also on **Test any alert**, the first-run setup and the overlay studio.
+  - **On screen for** is how long the whole alert stays up.
+  - **Browser source:** the alerts link with a **Copy** button. In OBS: **Sources → + → Browser**, paste it, Width 1920, Height 1080. In Meld Studio: add a **Browser** layer with the link.
+- **Right: everything for the alert you picked,** in sections that open and close: **When it plays**, **Words**, **Panel or picture**, **Sound**, **🗣 Read it out loud**, **Motion and timing**, **Copy or delete**, **For every alert** and **Test any alert**.
+- **🗑** on each alert in the list (and beside its name) deletes it, after asking once.
+
+**🗣 Read it out loud (TTS):** pick what it reads (the viewer's message, the alert's words, or both), the voice, speed, volume and the most it reads, then **▶ Hear it**. It plays right after the alert's sound and the alert stays up until it's done. It uses the voices in Windows (add more in Windows **Settings → Time & language → Speech**). Links are read as "a link", and messages with your hidden words aren't read.
+
+**🎯 Goal reached:** a Goal bar can play this alert when it's reached (tick **Also play the Goal reached alert** on the Goal bar). Under **When it plays**, pick one goal for an alert just for it, or leave it empty for every goal.
+
+Everything saves by itself, and every overlay updates at once with no refresh needed.
 
 | Kind | Comes from |
 |---|---|
@@ -384,35 +394,35 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 
 ### First chatter and Special greetings
 
-- **✧ First chatter** (and **Special greetings**) do nothing at all while that alert is switched off on the Alerts page: no alert, no sound and no chat message. People who chat while it's off still count as seen. It plays the very first time someone ever says something in your chat, on Twitch, Kick, YouTube or TikTok. Command Center remembers everyone who has chatted (in `command-data\chatters.json`) and never forgets them, so it happens once per person, ever: not again next stream, not after a restart or an update, not when their name shows a little differently (like YouTube through Streamer.bot), and not when the same name chats on another platform. Everyone who already had loyalty points counts as having chatted. You and chat bots like Nightbot never set it off. In the First chatter box, pick **how they're welcomed**:
+- **✧ First chatter** (and **Special greetings**) do nothing at all while that alert is switched off on the Alerts page: no alert, no sound and no chat message. People who chat while it's off still count as seen. It plays the very first time someone ever says something in your chat, on Twitch, Kick, YouTube or TikTok. Command Center remembers everyone who has chatted (in `command-data\chatters.json`) and never forgets them, so it happens once per person, ever: not again next stream, not after a restart or an update, not when their name shows a little differently (like YouTube through Streamer.bot), and not when the same name chats on another platform. Everyone who already had loyalty points counts as having chatted. You and chat bots like Nightbot never set it off. Under **When it plays**, pick **how they're welcomed** (for every First chatter alert):
   - **Alert + chat** or **Alert only**: your alert on stream, set up below like any alert. Use a ready-made panel, your own, or **No panel**, with or without a **Sound** (**None** for a silent alert).
   - **Chat only**: just a message in chat, plus an optional **Sound on stream** that plays with nothing shown (or **No sound**). The alert designer hides itself, since nothing shows.
   - With chat, type **what the chatbot says** (`{user}` is their name). **Test it** does the real thing and says whether each part worked.
-- **♛ Special greeting**: pick **Special greeting** on the left and click **+ Add someone**. Add as many people as you like. For each one:
+- **♛ Special greeting**: pick **Special greeting** on the left and click **+ Add a special greeting**. Each person is a line in the list; click one to set it up on the right:
   - the **platform** (or Any platform) and their **username**
   - **how they're greeted**: **Alert + chat**, **Alert only** or **Chat only**
   - **On stream**: the words on the alert (use `{name}` for their name, like `All hail {name}!`)
   - **In chat**: what the chatbot says (leave it empty to say the same as the alert)
   - their **sound**: a built-in one, one of your sounds, or **⬆ Upload a sound…**. For **Chat only** people the sound still plays on stream, with nothing shown (pick **No sound** for silence).
 
-  The first time they chat in each stream, they're greeted the way you picked. **Test** does the real thing: it plays their alert or sound in OBS and posts their line in your real chat, then says whether each part worked (and why not, if it didn't). **✓ Greeted this stream** shows who has been greeted, and **Greet again** lets them be greeted once more. **▶** plays their sound, and the tick turns one person off without deleting them. People on the list get their greeting instead of the First chatter alert. The chat message goes to the platform they chatted on (TikTok doesn't let apps post in chat, so TikTok viewers only get the alert).
-- Both look like any other alert: set the panel, text, spot on your stream and sound below. A new stream starts when you go live on Twitch, when you click **New session** on the Command Center page, or after 8 quiet hours.
+  The first time they chat in each stream, they're greeted the way you picked. Add more than one greeting for the same person and one is picked at random each time they show up. **Test their greeting** does the real thing: it plays their alert or sound in OBS and posts their line in your real chat, then says whether each part worked (and why not, if it didn't). **✓ Greeted this stream** shows who has been greeted, and **Greet again** lets them be greeted once more. **▶** plays their sound, and the switch turns a greeting off without deleting it. People on the list get their greeting instead of the First chatter alert. The chat message goes to the platform they chatted on (TikTok doesn't let apps post in chat, so TikTok viewers only get the alert).
+- Both look like any other alert: set the panel, words, spot on your stream and sound on the right. Every special greeting shares one look. A new stream starts when you go live on Twitch, when you click **New session** on the Command Center page, or after 8 quiet hours.
 
 ### Make an alert in four steps
 
-1. **Pick a panel** in the **🖼 Panel** box: a ready-made one (**Fleet console**, **Neon frame**, **Hyperspace**, **Glass card**, **Slim banner**, **Fleet emblem**), the **viewer's profile picture**, **No panel**, or **+ Add your own** (PNG, JPG, GIF, WebP, WebM or MP4). You can also drag a file straight onto the page. The ready-made panels use the alert's own colour. The **🗑** on one of your own files deletes it for good (and takes it off any alert that used it).
-2. **Type what it says** in the **✎ Text** box, like `{name} just enlisted`. Click a fill-in to add it where your cursor is. Press Enter for a second line.
+1. **Pick a panel** in **Panel or picture**: a ready-made one (**Fleet console**, **Neon frame**, **Hyperspace**, **Glass card**, **Slim banner**, **Fleet emblem**), the **viewer's profile picture**, **No panel**, or **+ Add your own** (PNG, JPG, GIF, WebP, WebM or MP4). You can also drag a file straight onto the page. The ready-made panels use the alert's own colour. The **🗑** on one of your own files deletes it for good (and takes it off any alert that used it).
+2. **Type what it says** in **Words**, like `{name} just enlisted`. Click a fill-in to add it where your cursor is. Press Enter for a second line.
 3. **Drag them where you want them** on your stream:
-   - Drag the **panel** (orange box) or the **words** (blue box) to move them. They snap to the middle when you get close.
+   - Drag the **panel** (orange box) to move it. It snaps to the middle when you get close.
    - Drag a **corner** to make it bigger or smaller. Your own panels keep their shape; the ready-made panels stretch to fit your words. Dragging a corner of the words makes the letters bigger or smaller too, and the side handles make the words wider or narrower.
    - **Hold Alt and drag an edge** of the panel to cut that side off, like cropping a source in OBS. **Undo crop** in the Panel box puts it back.
-   - **Words move with the panel** (ticked) moves both together when you drag the panel. Untick it to move the panel on its own.
+   - **🔒 Words locked to the panel** (the default): the panel's 8 points resize the panel and its words together, so the words always stay inside it. Click it to unlock, and the words get their own points to move and size them on their own.
    - **Move it to** puts the whole alert in a corner, an edge or the middle in one click.
    - **Show my stream behind it** puts a picture of what OBS is showing behind the box, so you can see what the alert will cover (OBS must be connected).
    - Click a box and use the arrow keys to nudge it (Shift moves it further).
-4. **Pick a sound** in **🔊 Sound**, then click **Save alerts**.
+4. **Pick a sound** in **🔊 Sound**. It saves by itself.
 
-**Where the sounds play:** every alert sound (special greetings and chat-only greetings included) plays from your alerts **Browser source in OBS**, the one you add with **Copy OBS link**. Command Center itself plays nothing on stream. For your stream to hear it, that source needs **Control audio via OBS** ticked (in OBS: right-click the source → **Properties** → tick it → **OK**). With OBS connected, the **🔊 Sound** box checks this for you and **Turn it on for me** ticks it. The source then shows in the OBS Audio Mixer, where you set its volume. To hear it yourself too: **Edit → Advanced Audio Properties** → **Monitor and Output**.
+**Where the sounds play:** every alert sound (special greetings and chat-only greetings included) plays from your alerts **Browser source in OBS**, the one you add with the **Browser source** link. Command Center itself plays nothing on stream. For your stream to hear it, that source needs **Control audio via OBS** ticked (in OBS: right-click the source → **Properties** → tick it → **OK**). With OBS connected, the **🔊 Sound** box checks this for you and **Turn it on for me** ticks it. The source then shows in the OBS Audio Mixer, where you set its volume. To hear it yourself too: **Edit → Advanced Audio Properties** → **Monitor and Output**.
 
 | File | Works as |
 |---|---|
@@ -422,7 +432,7 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
 | MP4 | video without see-through parts (up to 40 MB) |
 | MP3, WAV, OGG, M4A, FLAC | sound (up to 15 MB) |
 
-### The boxes under your stream
+### The sections on the right
 
 - **🖼 Panel**
   - the panels to pick from (Ctrl-click several to play one at random each time), and 🗑 to delete your own files
@@ -449,22 +459,30 @@ Kick replies use your Kick sign-in if you have one, otherwise Streamer.bot. YouT
   - **Shows up after** (0–5 s) and **Stays for** (0 = the whole alert)
   - **Also show what the viewer wrote** and **Show which platform it came from**
 - **🔊 Sound**: built-in sounds or your own, **Volume**, and **Start the sound after** (0–5 s) to line it up with your animation. Pick more than one and one plays at random.
-- **⚙ When it shows:** only when the amount is at least a number, and only from certain platforms.
+- **⚡ When it plays:** see *More than one alert for a type* below.
 
-**Give every alert a look** (top of the page) gives every alert one of the ready-made styles in one click: panel, spot, text style and motion. Words and sounds stay as they are. **Copy to every alert** copies the alert you're on (panel, spot, text style and motion) to all the others.
+**Give every alert a look** (in **For every alert**) gives every alert one of the ready-made styles in one click: panel, spot, text style and motion. Words and sounds stay as they are. **Copy this look to every alert** copies the alert you're on (panel, spot, text style and motion) to all the others.
 
-Alerts you made before 0.7.1 carry over by themselves: your panel or picture, words, font, colours, motion and sounds come along, placed near the top in the middle. Drag them where you want them, then click **Save alerts**.
+Alerts you made before 0.7.1 carry over by themselves: your panel or picture, words, font, colours, motion and sounds come along, placed near the top in the middle. Drag them where you want them.
 
-### Bigger alerts for bigger moments
+### More than one alert for a type
 
-Every alert with an amount (Bits / Kicks, Gift subs, Tips, Super Chats, Raids, TikTok gifts, Likes) and Subscriptions can have bigger alerts that play instead of the main design when the moment is bigger.
+Every type can have as many alerts as you like, each with its own look, words, sound and trigger.
 
-1. **+ Ready-made levels** (in the **Editing** bar under the preview) adds a whole set in one go, each a little bigger and longer than the one before: bits 100 / 500 / 1,000 / 5,000 / 10,000, gift subs 5 / 10 / 25 / 50 / 100, tips and Super Chats $10 / $25 / $50 / $100, raids 10 / 25 / 50 / 100, TikTok coins 100 / 500 / 1,000 / 5,000, and for subs 2 / 3 / 6 / 9 / 12 / 18 / 24 / 36 months, Tier 2 and Tier 3. Levels you already have are skipped.
-2. **+ Bigger alert** adds one at a time. It starts as a full copy of the main design.
-3. Click a level in the **Editing** bar and set **Plays when** (*Amount is at least*, *Months are at least*, *Tier is* or *Platform is*) and the amount. Then change anything you like for that level: picture, sound, words, size, time on screen.
-4. When several fit, the biggest one that's **on** wins. The number beside an alert in the list (like **+5**) shows how many bigger alerts it has; when some are off it shows how many are on (like **7/10**). **Delete** removes one (a small card asks first).
-5. **Words:** a level uses the main alert's words, and follows them when you change them, until you type its own in **What it says** while the level is open. **Use the main alert's words instead** puts it back.
-6. **Turn any level on or off** without deleting it: click the **ON / OFF** switch on its chip in the **Editing** bar, or the **✓ Enabled / ⦸ Disabled** button when it's open. **All levels on** and **All levels off** flip them all. A level that's off is skipped: a 9-month resub with 9+ months off gets the 6+ months alert. Switching a level (or a whole alert) on or off takes effect straight away; no need to press Save.
+1. Click the type on the left (for example **Bits / Kicks**), then **+ Add bits alert**. It starts with the same look as alert 1.
+2. Under **When it plays**, set when it plays:
+   - **A range:** for example 1 to 100 bits, then another alert for 101 to 500, then one for 501 and up (leave "to" empty for no top limit). This works for bits and Kicks, gifted subs, months subscribed, raid size, tips, Super Chats, TikTok coins and likes.
+   - **Sub tier:** Prime, Tier 1, 2 or 3 (subs and gift subs).
+   - **One reward or Power-up** (Channel points and Bits Power-ups): pick it from your channel, or type its name exactly. Your Twitch rewards and your Kick rewards are both listed, and picking a platform shows only that one's. Empty = any reward that has no alert of its own.
+   - **One person** (First chatter, optional).
+   - **Platforms:** none picked = every platform.
+3. Change its panel, words, sound and time on screen.
+
+**Which one plays:** of the alerts that are on and fit, the most exact one wins. A 50-bit cheer plays your "1 to 100 bits" alert, not an "any amount" one. When several alerts that are on have **exactly the same trigger**, one is picked **at random** each time. The list shows the chance (2 alerts = 50% each, 3 = 33%…), and it changes by itself when you turn one on or off. **Copy or delete → Make a copy** is the quickest way to make one that takes turns with the alert you're on.
+
+**Switches:** an alert's own switch turns just that alert off. When every alert that would fit is off, nothing plays for that event. Switches take effect straight away.
+
+**From older versions:** each type's main design became its alert 1, and every bigger alert (level) became its own alert with the same trigger. "Only from these platforms" and "only when the amount is at least" moved into each alert's own trigger, so everything plays like before.
 
 **Time on screen and the other sliders** each have a small box beside them: drag the slider, or type an exact number (like `7.75` seconds) and press Enter.
 
@@ -481,7 +499,7 @@ Every alert with an amount (Bits / Kicks, Gift subs, Tips, Super Chats, Raids, T
 Under the overlays and the widget library:
 - **Test any alert** (bottom of the Alerts page) sends a pretend event to every overlay. You can pick the platform and amount. Tests are never counted in stats or credits, and the page says whether OBS showed it.
 - **Your OBS links** has the links for your first overlays and for **Alerts only**, ready to copy.
-- **On-screen controls:** **Restart countdowns** resets every Countdown widget, and **Roll the credits** restarts every End credits widget.
+- **On-screen controls:** **Restart countdowns** resets every Countdown widget, and **Roll the credits** rolls every End credits widget from the top with this stream's latest supporters. A deck button or a chat command (action **Roll the end credits**) does the same.
 
 Two overlays come ready made: **Main HUD** and **Be Right Back**. **+ New overlay** offers these templates:
 - **Blank**
@@ -521,11 +539,14 @@ Saving updates OBS at once. Changes appear on stream while you work, so tweak po
 **Dashboard → Chaos wheel** (under On screen). Your viewers set it off by reaching amounts you choose; the wheel pops up on stream, spins, and lands on one of your results.
 
 1. **What sets it off:** tick any of Follows, Subs, Gifted subs, Bits / Kicks, Tips, Super Chats, Raids, TikTok gifts or a Channel point reward, and type the amount it takes. **In one go** means one cheer, tip or gift that big (e.g. 500 bits). **Added up over the stream** means every time the total reaches it (e.g. every 1,000 bits, or every 10 follows). Spins wait their turn.
-2. **What's on the wheel:** your own results ("Potato cam for 5 minutes", "Play with no HUD"…). Make some **2×, 3× or 5× as likely**, and a result can **press a Hyperwave Deck button** when it lands (switch scene, play a sound, show a source…).
-3. **When it lands:** say the result in chat (`{user}` `{why}` `{result}`), how long it spins and how long the result stays on screen.
+2. **What's on the wheel:** your own results ("Potato cam for 5 minutes", "Play with no HUD"…). For each one:
+   - **How likely:** Very rare (¼×), Rare (½×), Normal, 2×, 3× or 5× as likely.
+   - **A sound** that plays on stream when the wheel lands on it (built-in, one of yours, or **⬆ Upload a sound…**). **▶** lets you hear it.
+   - **How the wheel looks:** **Slice size shows the chance**, or **same-size slices** where likelier results get more slices, side by side or spread around the wheel. The chances are the same either way; with same-size slices nobody can see which results are rare. The preview beside it shows your wheel.
+3. **When it lands:** say the result in chat (`{user}` `{why}` `{result}`), how long it spins (two numbers, like 10 to 20, = a random time between them each spin) and how long the result stays on screen.
 4. **Show it on stream:** **Make the Chaos wheel overlay** → **Copy OBS link** → add it in OBS as a Browser source (1920 × 1080, tick **Control audio via OBS**). It stays hidden and pops up only to spin. Style it in the studio like the giveaway wheel (Game show lights, Neon, Glossy 3D…).
 
-The **Console** has **Test spin** (spins on stream, no chat message, no deck button), **Spin for real** and **Clear waiting spins**. A Hyperwave Deck button can spin it too (step **Spin the Chaos wheel**). Test alerts from the Alerts page never set it off.
+The **Console** has **Test spin** (spins on stream, no chat message), **Spin for real** and **Clear waiting spins**. A Hyperwave Deck button can spin it too (step **Spin the Chaos wheel**). Test alerts from the Alerts page never set it off.
 
 The **History** box under the Console lists every spin: the time, who set it off, why and where it landed, with **Up next** showing spins still waiting. A spin stopped with **Stop now** shows crossed out, test spins say **TEST**. The last 300 spins are kept after a restart; **Clear** empties it.
 
@@ -533,9 +554,9 @@ The **History** box under the Console lists every spin: the time, who set it off
 
 | Widget | What it does | Main settings |
 |---|---|---|
-| ⚡ Alert box | Plays your alerts, each exactly where you placed it on the Alerts page (the box itself can sit anywhere) | Which alerts |
+| ⚡ Alert box | Plays your alerts where you placed them on the Alerts page. In the studio its frame sits over them: drag it to move them all, drag a corner to resize them all together | Which alerts |
 | 💬 Chat | Twitch + Kick + YouTube + TikTok chat with emotes | Style (Fleet console, Bubbles, Text with shadow, Plain), platforms, font, size, colour, most messages, hide after, **platform** (round logo, short tag or hidden; the logos grow with the text size), badges, profile pictures, hide `!commands`, hide bot names, newest at the top |
-| 🎯 Goal bar | Progress toward a goal | **Style** (Bar, Slim line, Blocks, Ring), title, what it counts, **Keep counting across streams** (with **Start this goal over**), start from, target, manual value, bar colours, height, percent, auto-raise the target when reached |
+| 🎯 Goal bar | Progress toward a goal | **Style** (Bar, Slim line, Blocks, Ring), title, what it counts, **Keep counting across streams** (with **Start this goal over**), start from, target, manual value, bar colours, height, percent, auto-raise the target when reached, and when it's reached: **say it in chat** (`{title}` `{target}` `{current}`, optionally as a highlighted Twitch announcement) and **play the Goal reached alert** |
 | 📜 Recent events | Latest follows, subs, tips… | Which events, how many, **style** (Fleet console, Cards, Pills, Neon, Plain), profile pictures, font |
 | 🏷 Latest / top supporter | One supporter with their value: latest bits (`500 bits`), latest sub (`Tier 1 · 6 months`), latest raid (`42 raiders`), latest tip (`$10`), top gifter… | Event, latest or top, **layout** (One line, Card, Badge), label, profile picture (circle, rounded, hexagon), show the value, colours |
 | 🏅 Latest supporters | Several at once: latest follower, sub, bits, raid, tip… side by side, stacked or in a grid | Which ones, latest or top, arrange, each as Card / One line / Badge, labels, profile pictures, values, hide empty ones |
@@ -549,7 +570,7 @@ The **History** box under the Console lists every spin: the time, who set it off
 | 🖼 Picture / video | Logo, frame, GIF or transparent WebM | File or link, fit, opacity, rounded corners, slow spin |
 | 🎵 Now playing | The song playing, with art and progress | Font, colours, "requested by", hide when idle |
 | 🎉 Emote wall | Emotes from chat float, rain or pop | Emote size, most at once, seconds, motion |
-| 🎬 End credits | Rolls raiders, subs, gifters, cheers, tips, TikTok gifts, followers and top chatters | Title, font, speed, chatters, loop |
+| 🎬 End credits | Rolls everyone who raided, subbed, gifted, cheered, used Power-ups, tipped and followed this stream, plus top chatters and your own special thanks. Built fresh every time it rolls and every time OBS shows its scene | Title, line under it, who to thank, amounts, special thanks, last line, columns, font, colours, background, speed, start rolling (when shown / only when rolled), at the end (start again / stop on the last line / disappear) |
 | 📰 Ticker | A line of your text, recent events, and the **latest values** (latest bits, sub, raid, tip… with their amounts) or the **top this stream** | What it shows (tick any mix), which ones, show values, **motion** (Scroll, Slide up one at a time, Fade, Typewriter), speed or seconds on each, colours |
 | 🕑 Clock | Your local time | **Style** (Digital, LCD, Analog hands, Time with the date, Flip clock), 12/24 h, seconds |
 | 🌐 Web page | Any page inside your overlay | Address (e.g. your Hyperwave Chat design link) |
@@ -589,7 +610,8 @@ The bot answers on the platform the message came from:
 **Commands.** Click **+ Add command** and fill in:
 - **Command:** the name without `!`.
 - **Other names:** aliases, comma separated.
-- **Reply.**
+- **Reply** (optional when it does something on stream).
+- **What it does on stream** (optional, up to 5, in order): switch to a scene, show or hide a source, mute or unmute an audio source, play a sound, stop sounds, make a Twitch clip, save the replay, press a Hyperwave Deck button, spin the Chaos wheel, skip the song, or play / pause the music. Use `{clip}` in the reply for the new clip's link. For example `!brb`: switch to the BRB scene, reply "Be right back!". Set **Who can use it** to Mods or Only me for anything that changes your stream.
 - **Who can use it:** Everyone, Subs & up, VIPs & up, Mods, or Only me.
 - **Cooldown** for everyone and a **per-viewer cooldown**. Mods and you skip cooldowns.
 - **Costs points.**
@@ -734,7 +756,9 @@ A countdown on stream that you or your mods start from chat, any time.
 | `!timer pause` · `!timer resume` | pause and carry on |
 | `!timer stop` | cancel it |
 
-Typing a new time replaces the running timer.
+Typing a new time replaces the running timer. Timers have no real limit, so a long subathon fits (the most is 30 days, so a typo can't set one for years).
+
+**Subathon:** under **Chat timer → Add time from stream events**, tick it and set how much time each sub, gifted sub, 100 bits, follow, tip, raid, reward or TikTok gift adds (for example **Gifted subs: + 60 sec per 1**, **Bits: + 30 sec per 100**). It only adds while a timer is running. **Try** adds a row's time right away to check it, and the overlay shows **+1:00 · name** each time.
 
 **Set it up once:** **Dashboard → Chat modules → Chat timer**, press **Make the timer overlay**, then **Copy OBS link** in the studio and add it to OBS as a Browser source. Change its look in the studio: big numbers, a draining bar or a ring, title, text at zero, a warning colour for the last seconds, a sound at zero, hide it a few seconds after zero, font, size and colours.
 
